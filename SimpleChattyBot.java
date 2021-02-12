@@ -1,56 +1,65 @@
 import java.util.Scanner;
 
 public class SimpleChattyBot {
+    
+    final static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        
-        System.out.println("Hello! My name is Robbie. ");
 
+        greet("Robbie");
+        remindName();
+        guessAge();
+        count();
+        test();
+        end();
+    }
+
+    static void greet(String botName) {
+        System.out.println("Hello! My name is " + botName + ".");
         System.out.println("Please, remind me your name.");
+    }
 
-        Scanner scanner = new Scanner(System.in);
+    static void remindName() {
+        String userName = scanner.nextLine();
+        System.out.println("What a great name you have, " + userName + "!");
+    }
 
-        String userName = scanner.next();  
-
-        System.out.println("What a great name you have, " + userName +"!");
-
+    static void guessAge() {
         System.out.println("Let me guess your age.");
-
         System.out.println("Enter remainders of dividing your age by 3, 5 and 7.");
+        int reminder3 = scanner.nextInt();
+        int reminder5 = scanner.nextInt();
+        int reminder7 = scanner.nextInt();
+        int age = (reminder3 * 70 + reminder5 * 21 + reminder7 * 15) % 105;
+        System.out.println("Your age is " + age + "!");
+    }
 
-        int remainder3 = scanner.nextInt();
-        int remainder5 = scanner.nextInt();
-        int remainder7 = scanner.nextInt();
-
-        int age = (remainder3 * 70 + remainder5 * 21 + remainder7 * 15) % 105;
-
-        System.out.println(userName + ", your age is " + age + "!");
-
+    static void count() {
         System.out.println("Now I will prove to you that I can count to any number you want.");
-
-        int number = scanner.nextInt();
-
-        for ( int i = 0; i <= number; i++) {
-            System.out.println(i + "!");
+        int num = scanner.nextInt();
+        for (int i = 0; i <= num; i++) {
+            System.out.printf("%d!\n", i);
         }
+    }
 
+    static void test() {
         System.out.println("Let's test your programming knowledge.");
-        System.out.println("1. To repeat a statement multiple times.");
-        System.out.println("2. To decompose a program into several small subroutines.");
-        System.out.println("3. To determine the execution time of a program.");
-        System.out.println("4. To interrupt the execution of a program.");
-       
+        System.out.println("""
+                           Why do we use methods? 
+                            1. To repeat a statement multiple times. 
+                            2. To decompose a program into several small subroutines. 
+                            3. To determine the execution time of a program. 
+                            4. To interrupt the execution of a program.""");
+        
         int answer = scanner.nextInt();
 
-        boolean j = false;
-         do {
-            if (answer == 2) {
-         System.out.println("Congratulations, have a nice day!");
-         j = true;
-        } else {
-         System.out.println("Please, try again");
-         answer = scanner.nextInt();
-        } 
-          } while(j == false);
+        do {
+            System.out.println("Please, Try again.");
+            answer = scanner.nextInt();
+        } while(answer != 2);
+    }
+
+    static void end() {
+        System.out.println("Congratulations, have a nice day!");
     }
 }
