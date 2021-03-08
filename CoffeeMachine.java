@@ -1,33 +1,45 @@
 import java.util.Scanner;
 public class CoffeeMachine {
     public static void main(String[] args) {
-          Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
          
-        //basic stats  
+        
         int basicWater = 400;
         int basicMilk = 540;
         int basicBeans = 120;
         int basicCups = 9;
         int basicMoney = 550;
+        
+        int[] zawartoscMaszyny = {basicWater, basicMilk, basicBeans, basicCups, basicMoney};
          
-        //espresso
+        
+        int requiredCup = 1;
+        
+        
         int requiredWaterForEspresso = 250; 
         int requiredMilkForEspresso = 0;
         int requiredBeansForEspresso = 16;
-        int requiredMoneyForEspresso = 4;
+        int requiredMoneyForEspresso = 4;      
         
-        //latte
+        int[] skladnikiNaEspresso = {requiredWaterForEspresso, requiredMilkForEspresso, requiredBeansForEspresso, requiredCup, requiredMoneyForEspresso};
+        
+        
         int requiredWaterForLatte = 350; 
         int requiredMilkForLatte = 75;
         int requiredBeansForLatte = 20;
         int requiredMoneyForLatte = 7;
         
-        //cappuccino
+        int[] skladnikiNaLatte = {requiredWaterForLatte, requiredMilkForLatte, requiredBeansForLatte, requiredCup, requiredMoneyForLatte};
+        
+        
         int requiredWaterForCappuccino = 200; 
         int requiredMilkForCappuccino = 100;
         int requiredBeansForCappuccino = 12;
         int requiredMoneyForCappuccino = 6;
+        
+        int[] skladnikiNaCappuccino = {requiredWaterForCappuccino, requiredMilkForCappuccino, requiredBeansForCappuccino, requiredCup, requiredMoneyForCappuccino};
     
+        
         int add = 0;
         boolean condition = true;
     
@@ -39,71 +51,13 @@ public class CoffeeMachine {
                          String option = scanner.next();
                          switch (option) {
                          case "1": 
-                                if (requiredWaterForEspresso <= basicWater && requiredMilkForEspresso <= basicMilk && requiredBeansForEspresso <= basicBeans && basicCups > 0){
-                                System.out.println("I have enough resources, making you a coffee!");
-                                 basicWater -= requiredWaterForEspresso;
-                                 basicMilk -= requiredMilkForEspresso;
-                                 basicBeans -= requiredBeansForEspresso;
-                                 basicCups -=1;
-                                 basicMoney += requiredMoneyForEspresso;
-                                } else {
-                                    if (requiredWaterForEspresso < basicWater){
-                                       System.out.println("Sorry, not enough water!"); 
-                                    }
-                                    if (requiredMilkForEspresso < basicMilk){
-                                       System.out.println("Sorry, not enough milk!");
-                                    }
-                                    if (requiredBeansForEspresso < basicBeans){
-                                       System.out.println("Sorry, not enough beans!");
-                                    }
-                                    if (basicCups < 1){
-                                       System.out.println("Sorry, not enough cups!");
-                                    }
-                                }                         
+                                 zawartoscMaszyny = buy(zawartoscMaszyny, skladnikiNaEspresso);                       
                                  break;
-                         case "2": if (requiredWaterForLatte <= basicWater && requiredMilkForLatte <= basicMilk && requiredBeansForLatte <= basicBeans && basicCups > 0){
-                                 System.out.println("I have enough resources, making you a coffee!");
-                                 basicWater -= requiredWaterForLatte;
-                                 basicMilk -= requiredMilkForLatte;
-                                 basicBeans -= requiredBeansForLatte;
-                                 basicCups -=1;
-                                 basicMoney += requiredMoneyForLatte;
-                                 } else {
-                                    if (requiredWaterForLatte < basicWater){
-                                       System.out.println("Sorry, not enough water!"); 
-                                    }
-                                    if (requiredMilkForLatte < basicMilk){
-                                       System.out.println("Sorry, not enough milk!");
-                                    }
-                                    if (requiredBeansForLatte < basicBeans){
-                                       System.out.println("Sorry, not enough beans!");
-                                    }
-                                    if (basicCups < 1){
-                                       System.out.println("Sorry, not enough cups!");
-                                    }
-                                }              
+                         case "2": 
+                                 zawartoscMaszyny = buy(zawartoscMaszyny, skladnikiNaLatte);                                  
                                  break;
-                         case "3": if (requiredWaterForCappuccino <= basicWater && requiredMilkForCappuccino <= basicMilk && requiredBeansForCappuccino <= basicBeans && basicCups > 0){
-                                 System.out.println("I have enough resources, making you a coffee!");
-                                 basicWater -= requiredWaterForCappuccino;
-                                 basicMilk -= requiredMilkForCappuccino;
-                                 basicBeans -= requiredBeansForCappuccino;
-                                 basicCups -=1;
-                                 basicMoney += requiredMoneyForCappuccino;
-                                 } else {
-                                    if (requiredWaterForCappuccino < basicWater){
-                                       System.out.println("Sorry, not enough water!"); 
-                                    }
-                                    if (requiredMilkForCappuccino < basicMilk){
-                                       System.out.println("Sorry, not enough milk!");
-                                    }
-                                    if (requiredBeansForCappuccino < basicBeans){
-                                       System.out.println("Sorry, not enough beans!");
-                                    }
-                                    if (basicCups < 1){
-                                       System.out.println("Sorry, not enough cups!");
-                                    }
-                                }    
+                         case "3": 
+                                 zawartoscMaszyny = buy(zawartoscMaszyny, skladnikiNaCappuccino);
                                  break;
                          case "back": 
                                  break;
@@ -130,18 +84,57 @@ public class CoffeeMachine {
                      break;
                      
         case "remaining":
-                                System.out.println("The coffee machine has:");
-                                System.out.println(basicWater + " of water");
-                                System.out.println(basicMilk + " of milk");
-                                System.out.println(basicBeans + " of coffee beans");
-                                System.out.println(basicCups + " of disposable cups");
-                                System.out.println(basicMoney + " of money");
+                     show(zawartoscMaszyny);
                      break;
         case "exit":
                      condition = false;          
                      break;
                      
         } 
+        
+    } 
+     
+    }
+    
+    public static int[] buy(int[] tablicaZawartosciMaszyny, int[] tablicaWybranejKawy){
+         
+        int[] aktualizacjaZawartosciTablicy = new int[5];
+
+        for (int i = 0; i < 4; i++) {
+            if (tablicaZawartosciMaszyny[i] >= tablicaWybranejKawy[i]){
+            }
+            else { 
+                if ( i == 1) {System.out.println("Sorry, not enough water!");}
+                if ( i == 2) {System.out.println("Sorry, not enough milk!");}
+                if ( i == 3) {System.out.println("Sorry, not enough beans!");}
+                if ( i == 4) {System.out.println("Sorry, not enough cups!");}
+                return tablicaZawartosciMaszyny;
+            }
+        }
+        
+        System.out.println("I have enough resources, making you a coffee!");
+        
+        for (int i = 0; i < 5; i++){
+            
+            if (i == 4) {
+                aktualizacjaZawartosciTablicy[i] = tablicaZawartosciMaszyny[i] + tablicaWybranejKawy[i];
+            } else {
+            aktualizacjaZawartosciTablicy[i] = tablicaZawartosciMaszyny[i] - tablicaWybranejKawy[i];    
+            }
+       
+        } 
+        return aktualizacjaZawartosciTablicy;
+     } 
+    
+    public static void show(int[] tablicaZawartosciMaszyny)
+     {
+         System.out.println("The coffee machine has:");
+                                System.out.println(tablicaZawartosciMaszyny[0] + " of water");
+                                System.out.println(tablicaZawartosciMaszyny[1] + " of milk");
+                                System.out.println(tablicaZawartosciMaszyny[2] + " of coffee beans");
+                                System.out.println(tablicaZawartosciMaszyny[3] + " of disposable cups");
+                                System.out.println(tablicaZawartosciMaszyny[4] + " of money");
+
      }
-   }
+    
 }
